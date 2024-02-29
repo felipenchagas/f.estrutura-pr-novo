@@ -1,10 +1,6 @@
 RewriteEngine On
 Options +FollowSymlinks
 
-# Redirecionar de HTTP para HTTPS
-RewriteCond %{HTTPS} off
-RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
-
 # Redirecionar de www para non-www
 RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
 RewriteRule ^ https://%1%{REQUEST_URI} [NE,L,R=301]
