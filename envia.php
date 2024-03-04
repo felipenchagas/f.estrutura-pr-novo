@@ -3,6 +3,10 @@
 require_once("novo/src/PHPMailer.php");
 // Inicia a classe PHPMailer
 $mail = new PHPMailer(true);
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+$mail->setLanguage('pt_br', '/novo/language/');
 // Define os dados do servidor e tipo de conexão
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 $mail->IsSMTP(); // Define que a mensagem será SMTP
