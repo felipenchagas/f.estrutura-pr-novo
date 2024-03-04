@@ -1,6 +1,6 @@
 <?php
 // Inclui o arquivo class.phpmailer.php localizado na pasta class
-require_once("novo/class.phpmailer.php");
+require_once("novo/src/PHPMailer.php");
 // Inicia a classe PHPMailer
 $mail = new PHPMailer(true);
 // Define os dados do servidor e tipo de conexão
