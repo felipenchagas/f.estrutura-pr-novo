@@ -53,7 +53,7 @@ $mail->AddAddress('contato@estruturametalicapr.com.br', 'Estrutura Metalica PR')
      // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=    
      $mail->SetFrom('contato@estruturametalicapr.com.br', "$nomeremetente"); //Seu e-mail
      $mail->AddReplyTo('contato@estruturametalicapr.com.br', 'Nome'); //Seu e-mail	
-    $mail->Subject = "ORÇAMENTO - SITE - # $orcamento";//Assunto do e-mail
+    $mail->Subject = "ORCAMENTO - SITE - # $orcamento";//Assunto do e-mail
     $mail->isHTML(true);
 	
 	
