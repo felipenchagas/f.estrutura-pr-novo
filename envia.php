@@ -44,7 +44,7 @@ function GerarOrcamento(){
   
 try {
      $mail->IsSMTP(); /* Ativar SMTP*/
-     $mail->Host = 'mail.estruturametalicapr.com.br'; // Endereço do servidor SMTP (Autenticação, utilize o host smtp.seudomínio.com)
+     $mail->Host = 'mail.embrafer.com'; // Endereço do servidor SMTP (Autenticação, utilize o host smtp.seudomínio.com)
      $mail->SMTPAuth   = true;  // Usar autenticação SMTP (obrigatório para smtp.seudomínio.com)
      $mail->Port       = 587; //  Usar 587 porta SMTP
      $mail->Username = 'contato@estruturametalicapr.com.br'; // Usuário do servidor SMTP (endereço de email)
