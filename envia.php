@@ -8,7 +8,6 @@ require 'novo/src/SMTP.php';
 
 // Inicia a classe PHPMailer
 $mail = new PHPMailer(true);
-$mail->SMTPDebug = 2; // Ativa a saída de depuração detalhada
 $mail->IsSMTP(); // Define que a mensagem será SMTP
 $mail->CharSet = 'UTF-8';
 // Define os dados do servidor e tipo de conexão
