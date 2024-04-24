@@ -775,6 +775,7 @@ color: #FFF;
 	letter-spacing: 4.5px;
 	display: block;
 	margin-bottom: 20px;
+	 text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 .slider-content h2 {
 	font-size: 58px;
@@ -782,9 +783,11 @@ color: #FFF;
 	letter-spacing: 1.8px;
 	line-height: 1.1;
 	margin-bottom: 40px;
+	 text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 .slider-content h2 span {
 	color: #f64b3c;
+	 text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 .slider-content p span {
 	display: inline-block;
@@ -794,12 +797,18 @@ color: #FFF;
 	margin-right: 20px;
 	position: relative;
 	top: -4px;
+	 text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 .slider-content p {
-	color: #fff;
-	font-size: 18px;
-	margin-bottom: 0;
+    color: #fff;
+    font-size: 18px;
+    margin-bottom: 0;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
+
+
+
+
 .slider-btn .btn {
 	background: #fff;
 	color: #c81912;
