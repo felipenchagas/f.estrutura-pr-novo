@@ -18,7 +18,6 @@ RewriteCond %{SCRIPT_FILENAME}.html -f
 RewriteRule [^/]$ %{REQUEST_URI}.html [QSA,L]
 
 # Correção: Regra específica para seu domínio (removida)
-# Esta regra foi removida pois contradizia o objetivo de redirecionar de www para non-www.
 
 
 <IfModule mod_expires.c>
