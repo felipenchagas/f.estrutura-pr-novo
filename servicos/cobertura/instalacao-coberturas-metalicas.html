@@ -42,7 +42,7 @@
 <link rel="sitemap" type="application/xml" title="Sitemap" href="https://estruturametalicapr.com.br/sitemap.xml" />
 <link rel="me" href="https://www.instagram.com/embrafer/" />
 		<link rel="shortcut icon" type="image/x-icon" href="../../img/favicon.png">
-        <!-- Place favicon.ico in the root directory -->
+        
 
 		<!-- CSS here -->
         <link rel="stylesheet" href="../../css/bootstrap.min.css">
@@ -56,8 +56,67 @@
         <link rel="stylesheet" href="../../css/style.css">
         <link rel="stylesheet" href="../../css/responsive.css">
 		<link rel="stylesheet" type="text/css" href="../../estilo/wts.css">
-    </head>
+    <link rel="stylesheet" href="../../stylescontato.css"></head>
     <body>
+<div class="floating-button">
+  <button id="openModalBtn">Solicitar Orçamento</button>
+</div>
+
+
+<!-- Modal -->
+  <div id="contactModal" class="modal" style="display:none;">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Solicitar Orçamento</h2>
+        
+        <form action="processa_formulario.php" method="post" id="contact-form">
+          <div class="input-group">
+            <label for="nome">Nome Completo</label>
+            <input type="text" id="nome" name="nome" placeholder="Digite seu nome completo" required pattern="[A-Za-zÀ-ÿ\s]+" title="Somente letras são permitidas">
+          </div>
+          
+          <div class="input-group">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" placeholder="Digite seu e-mail" required>
+          </div>
+          
+          <div class="input-group">
+            <label for="telefone">Telefone</label>
+            <div class="phone-fields">
+              <input type="text" id="ddd" name="ddd" placeholder="DDD" maxlength="2" required pattern="\d{2}" title="Somente números são permitidos">
+              <input type="text" id="telefone" name="telefone" placeholder="Número" maxlength="9" pattern="\d{9}" title="Somente números são permitidos" required>
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <div class="input-group cidade">
+              <label for="cidade">Cidade</label>
+              <input type="text" id="cidade" name="cidade" placeholder="Digite sua cidade" required pattern="[A-Za-zÀ-ÿ\s]+" title="Somente letras são permitidas">
+            </div>
+            <div class="input-group estado">
+              <label for="estado">Estado</label>
+              <input type="text" id="estado" name="estado" placeholder="Digite" maxlength="2" pattern="[A-Za-z]{2}" title="Apenas 2 letras são permitidas" required>
+            </div>
+          </div>
+          
+          <div class="input-group">
+            <label for="descricao">Descrição do Orçamento</label>
+            <textarea id="descricao" name="descricao" placeholder="Descreva o serviço ou estrutura metálica que deseja orçar" required></textarea>
+          </div>
+          
+          <!-- Campo Honeypot escondido -->
+          <div style="display:none;">
+            <label for="honeypot">Não preencha este campo se for humano:</label>
+            <input type="text" id="honeypot" name="honeypot">
+          </div>
+          
+          <!-- Campo Oculto para o Temporizador -->
+          <input type="hidden" id="form_loaded_at" name="form_loaded_at" value="">
+          
+          <button type="submit">Enviar</button>
+        </form>
+      </div>
+    </div>
         <!-- header -->
         <header class="header-area">  
 			<div class="header-top second-header d-none d-md-block">
@@ -82,9 +141,9 @@
                          <div class="col-lg-2 col-md-4 d-none d-lg-block">
                              <div class="header-social text-right">
                             <span>
-                                <a href="../../#" title="Facebook"><i class="fab fa-facebook"></i></a>
-                                <a href="../../#" title="Twitter"><i class="fab fa-twitter"></i></a>
-                                <a href="../../#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>                               
+                                <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
+                                <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                                <a href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>                               
                                </span>                    
                                <!--  /social media icon redux -->                               
                         </div>
@@ -102,7 +161,7 @@
                         <div class="row align-items-center">
                             <div class="col-xl-2 col-lg-2">
                                 <div class="logo">
-                                    <a href="../../#index"><img src="../../img/logo/logo.png" alt="logo"></a>
+                                    <a href="#index"><img src="../../img/logo/logo.png" alt="logo"></a>
                                 </div>
                             </div>
                             <div class="col-xl-9 col-lg-9">
@@ -237,8 +296,8 @@
 
                     <div id="cssmenu2" class="menu-one-page-menu-container">
                         <ul id="menu-one-page-menu-1" class="menu">
-                            <li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="../../#home"><span>(41) 3082 8850</span></a></li>
-                            <li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="../../#howitwork"><span>contato@estruturametalicapr.com.br</span></a></li>
+                            <li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="#home"><span>(41) 3082 8850</span></a></li>
+                            <li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="#howitwork"><span>contato@estruturametalicapr.com.br</span></a></li>
                         </ul>
                     </div>                
             </div>
@@ -381,8 +440,8 @@
                             <div class="inner">
                                 <h4>Estrutura Metálica PR</h4>
                                 <div class="text">Comprometimento e excelência em cada estrutura. Somos a escolha certa para realizar seu projeto com qualidade e inovação. Entre em contato conosco e transforme sua visão em realidade.</div>
-                                <a class="theme-btn btn-style-one" href="../../#"><span class="btn-title"><i class="fa fa-file-pdf"></i> Orçamentos</span></a>
-                                <a class="theme-btn btn-style-one" href="../../#"><span class="btn-title"><i class="fa fa-file-pdf"></i> Projetos</span></a>
+                                <a class="theme-btn btn-style-one" href="#"><span class="btn-title"><i class="fa fa-file-pdf"></i> Orçamentos</span></a>
+                                <a class="theme-btn btn-style-one" href="#"><span class="btn-title"><i class="fa fa-file-pdf"></i> Projetos</span></a>
                             </div>
                         </div>
                     </aside>
@@ -430,7 +489,7 @@
                                     </li>
                                     <li>
                                         <i class="icon dripicons-mail"></i>
-                                        <span><a href="../../#mailto:contato@estrutrametalicapr.com.br">contato@estruturametalicapr.com.br</a></span>
+                                        <span><a href="#mailto:contato@estrutrametalicapr.com.br">contato@estruturametalicapr.com.br</a></span>
                                     </li>
                                     <li>
                                         <i class="fal fa-map-marker-alt"></i>
@@ -449,9 +508,9 @@
                         </div>
                         <div class="footer-link">
                             <ul>
-                                <li><a href="../../#empresa-estrutura-embrafer"><i class="fas fa-chevron-right"></i> Empresa</a></li>
-                                <li><a href="../../#servicos-estruturas-metalicas"><i class="fas fa-chevron-right"></i> Serviços</a></li>
-                                <li><a href="../../#atendimento-cidades"><i class="fas fa-chevron-right"></i> Atendimento</a></li>
+                                <li><a href="#empresa-estrutura-embrafer"><i class="fas fa-chevron-right"></i> Empresa</a></li>
+                                <li><a href="#servicos-estruturas-metalicas"><i class="fas fa-chevron-right"></i> Serviços</a></li>
+                                <li><a href="#atendimento-cidades"><i class="fas fa-chevron-right"></i> Atendimento</a></li>
                                 <li><a href="../../contato-estrutura-metalica"><i class="fas fa-chevron-right"></i> Contato</a></li>
                                 <li><a href="../../contato-estrutura-metalica"><i class="fas fa-chevron-right"></i> Orçamento</a></li>
                             </ul>
@@ -466,11 +525,11 @@
                         </div>
                         <div class="footer-link">
                             <ul>
-                                <li><a href="../../#cobertura-metalica"><i class="fas fa-chevron-right"></i> Cobertura Metálica</a></li>
-                                <li><a href="../../#servicos/estruturametalica/mezaninos-estruturas-metalica"><i class="fas fa-chevron-right"></i> Mezanino</a></li>
-                                <li><a href="../../#servicos/estruturametalica/escadas-estruturas-metalicas"><i class="fas fa-chevron-right"></i> Escadas Metálicas</a></li>
-                                <li><a href="../../#servicos/estruturametalica/manutencao-estruturas-metalicas"><i class="fas fa-chevron-right"></i> Manutenção</a></li>
-                                <li><a href="../../#servicos/construir-galpoes"><i class="fas fa-chevron-right"></i> Construir Galpões</a></li>
+                                <li><a href="#cobertura-metalica"><i class="fas fa-chevron-right"></i> Cobertura Metálica</a></li>
+                                <li><a href="#servicos/estruturametalica/mezaninos-estruturas-metalica"><i class="fas fa-chevron-right"></i> Mezanino</a></li>
+                                <li><a href="#servicos/estruturametalica/escadas-estruturas-metalicas"><i class="fas fa-chevron-right"></i> Escadas Metálicas</a></li>
+                                <li><a href="#servicos/estruturametalica/manutencao-estruturas-metalicas"><i class="fas fa-chevron-right"></i> Manutenção</a></li>
+                                <li><a href="#servicos/construir-galpoes"><i class="fas fa-chevron-right"></i> Construir Galpões</a></li>
                             </ul>
                         </div>
                     </div>
@@ -495,10 +554,10 @@
                         </div>
                         <div class="footer-social">
                             <span>Siga-nos</span>
-                            <a href="../../#"><i class="fab fa-facebook-f"></i></a>
-                            <a href="../../#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
                             <a href="https://www.instagram.com/embrafer/"><i class="fab fa-instagram"></i></a>
-                            <a href="../../#"><i class="fab fa-google-plus-g"></i></a>
+                            <a href="#"><i class="fab fa-google-plus-g"></i></a>
                         </div>
                     </div>
                 </div>
@@ -537,12 +596,12 @@
         <script src="../../js/parallax.min.js"></script>
         <script src="../../js/jquery.waypoints.min.js"></script>
         <script src="../../js/jquery.counterup.min.js"></script>
-        <script src="../../js/jquery.scrollUp.min.js"></script>
+        
         <script src="../../js/parallax-scroll.js"></script>
         <script src="../../js/jquery.magnific-popup.min.js"></script>
         <script src="../../js/element-in-view.js"></script>
         <script src="../../js/main.js"></script>
-    </body>
+    <script src="../../scriptcontato.js"></script></body>
 
-<!-- Mirrored from htmldemo.zcubethemes.com/fabr/services-detail by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 09 Jan 2024 17:26:22 GMT -->
+
 </html>
