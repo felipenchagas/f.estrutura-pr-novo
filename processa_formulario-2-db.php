@@ -6,6 +6,9 @@ ini_set('display_errors', 1); // Altere para 0 em produção
 ini_set('display_startup_errors', 1); // Altere para 0 em produção
 error_reporting(E_ALL); // Altere para 0 em produção
 
+// Inicia o buffer de saída
+ob_start();
+
 // Inclui o PHPMailer
 require_once("novo/src/PHPMailer.php");
 require_once("novo/src/SMTP.php");
@@ -54,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Verificação do Honeypot
     if (!empty($honeypot)) {
         // Submissão suspeita de bot
-        header('Location: sucesso.html'); 
+        header('Location: sucesso.html');
         exit();
     }
 
@@ -64,11 +67,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($form_loaded_at == 0 || $time_diff < 5) {  // Se o formulário foi enviado muito rapidamente
         // Submissão suspeita de bot
-        header('Location: sucesso.html'); 
+        header('Location: sucesso.html');
         exit();
     }
 
-    // Validação básica dos campos (já realizada no frontend, mas reforçada aqui)
+    // Validação básica dos campos
     if (empty($nome) || empty($email) || empty($ddd) || empty($telefone) || empty($cidade) || empty($estado) || empty($descricao)) {
         echo "Todos os campos são obrigatórios.";
         exit();
@@ -160,4 +163,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 } else {
     echo "Método de requisição inválido.";
 }
+
+// Encerra o buffer de saída
+ob_end_flush();
 ?>
