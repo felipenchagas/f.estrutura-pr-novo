@@ -18,7 +18,7 @@ use PHPMailer\PHPMailer\Exception;
 $servidor1 = "162.214.145.189";
 $usuario1 = "empre028_felipe";
 $senha1 = "Iuh86gwt--@Z123";
-$banco1 = "empre028_estruturametalicapr";
+$banco1 = "empre028_estruturapr";
 $conexao1 = new mysqli($servidor1, $usuario1, $senha1, $banco1);
 
 // Conectar ao segundo banco de dados (Locaweb)
