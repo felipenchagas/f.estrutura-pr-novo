@@ -20,14 +20,14 @@ use PHPMailer\PHPMailer\Exception;
 // Conectar ao primeiro banco de dados
 $servidor1 = "162.214.145.189";
 $usuario1 = "empre028_felipe";
-$senha1 = "SUA_SENHA_AQUI"; // Substitua pela sua senha
+$senha1 = "Iuh86gwt--@Z123"; // Substitua pela sua senha
 $banco1 = "empre028_estruturapr";
 $conexao1 = new mysqli($servidor1, $usuario1, $senha1, $banco1);
 
 // Conectar ao segundo banco de dados (Locaweb)
 $servidor2 = "localhost";
 $usuario2 = "primeiro_estrupr";
-$senha2 = "SUA_SENHA_AQUI"; // Substitua pela sua senha
+$senha2 = "uRXA1r9Z7pv~Cw2";
 $banco2 = "primeiro_estruturapr";
 $conexao2 = new mysqli($servidor2, $usuario2, $senha2, $banco2);
 
