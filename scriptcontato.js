@@ -50,17 +50,18 @@ document.addEventListener('DOMContentLoaded', function() {
             // Se o formulário passou pelas validações, adicionamos o redirecionamento
             event.preventDefault();  // Bloqueia o comportamento padrão de submissão
 
-            // Envia o formulário via AJAX (ou outro método)
-            // Exemplo usando AJAX com jQuery, mas pode ser substituído por outro método
+            // Envia o formulário via AJAX
             $.ajax({
                 url: form.action,  // O URL do action do formulário
                 method: form.method,  // O método (POST)
                 data: $(form).serialize(),
                 success: function(response) {
+                    console.log('Formulário enviado com sucesso:', response);
                     // Redireciona para a página de sucesso
                     window.location.href = 'sucesso.html';
                 },
-                error: function() {
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error('Erro no envio do formulário:', textStatus, errorThrown);
                     alert('Erro no envio do formulário.');
                 }
             });

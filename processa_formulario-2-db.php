@@ -14,7 +14,7 @@ require_once("novo/src/Exception.php");
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-// Conectar ao primeiro banco de dados (informações fornecidas)
+// Conectar ao primeiro banco de dados
 $servidor1 = "162.214.145.189";
 $usuario1 = "empre028_felipe";
 $senha1 = "Iuh86gwt--@Z123";
@@ -41,14 +41,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // Captura e sanitiza os dados do formulário
-    $nome = sanitizar(isset($_POST['nome']) ? $_POST['nome'] : '');
-    $email = sanitizar(isset($_POST['email']) ? $_POST['email'] : '');
-    $ddd = sanitizar(isset($_POST['ddd']) ? $_POST['ddd'] : '');
-    $telefone = sanitizar(isset($_POST['telefone']) ? $_POST['telefone'] : '');
-    $cidade = sanitizar(isset($_POST['cidade']) ? $_POST['cidade'] : '');
-    $estado = sanitizar(isset($_POST['estado']) ? $_POST['estado'] : '');
-    $descricao = sanitizar(isset($_POST['descricao']) ? $_POST['descricao'] : '');
-    $honeypot = sanitizar(isset($_POST['honeypot']) ? $_POST['honeypot'] : '');
+    $nome = sanitizar($_POST['nome'] ?? '');
+    $email = sanitizar($_POST['email'] ?? '');
+    $ddd = sanitizar($_POST['ddd'] ?? '');
+    $telefone = sanitizar($_POST['telefone'] ?? '');
+    $cidade = sanitizar($_POST['cidade'] ?? '');
+    $estado = sanitizar($_POST['estado'] ?? '');
+    $descricao = sanitizar($_POST['descricao'] ?? '');
+    $honeypot = sanitizar($_POST['honeypot'] ?? '');
     $form_loaded_at = isset($_POST['form_loaded_at']) ? intval($_POST['form_loaded_at']) : 0;
 
     // Verificação do Honeypot
@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit();
     }
 
-    // Validação básica dos campos (já realizada no frontend, mas reforçada aqui)
+    // Validação básica dos campos
     if (empty($nome) || empty($email) || empty($ddd) || empty($telefone) || empty($cidade) || empty($estado) || empty($descricao)) {
         echo "Todos os campos são obrigatórios.";
         exit();
@@ -102,16 +102,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             try {
                 // Configurações do servidor SMTP
                 $mail->isSMTP();
-                $mail->Host       = 'mail.embrafer.com';    // Endereço do servidor SMTP
+                $mail->Host       = 'mail.embrafer.com';
                 $mail->SMTPAuth   = true;
-                $mail->Username   = 'contato@estruturametalicapr.com.br'; // Seu email no SMTP
-                $mail->Password   = 'Futgrass80802!';      // Sua senha no SMTP
-                $mail->SMTPSecure = 'tls';                  // Criptografia TLS
-                $mail->Port       = 587;                    // Porta SMTP
+                $mail->Username   = 'contato@estruturametalicapr.com.br';
+                $mail->Password   = 'Futgrass80802!';
+                $mail->SMTPSecure = 'tls';
+                $mail->Port       = 587;
 
                 // Remetente e destinatário
                 $mail->setFrom('contato@estruturametalicapr.com.br', 'Embrafer Contato');
-                $mail->addAddress('contato@estruturametalicapr.com.br', 'Embrafer'); // Email que receberá o aviso
+                $mail->addAddress('contato@estruturametalicapr.com.br', 'Embrafer');
 
                 // Conteúdo do e-mail
                 $mail->isHTML(true);
