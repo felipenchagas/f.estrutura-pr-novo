@@ -2,9 +2,9 @@
 session_start();
 
 // **⚠️ IMPORTANTE:** Desative a exibição de erros em produção por segurança
-ini_set('display_errors', 1); // Altere para 0 em produção
-ini_set('display_startup_errors', 1); // Altere para 0 em produção
-error_reporting(E_ALL); // Altere para 0 em produção
+ini_set('display_errors', 0); // Altere para 0 em produção
+ini_set('display_startup_errors', 0); // Altere para 0 em produção
+error_reporting(0); // Altere para 0 em produção
 
 // Inicia o buffer de saída
 ob_start();
@@ -20,7 +20,7 @@ use PHPMailer\PHPMailer\Exception;
 // Conectar ao primeiro banco de dados
 $servidor1 = "162.214.145.189";
 $usuario1 = "empre028_felipe";
-$senha1 = "Iuh86gwt--@Z123"; // Substitua pela sua senha
+$senha1 = "Iuh86gwt--@Z123"; // Sua senha
 $banco1 = "empre028_estruturapr";
 $conexao1 = new mysqli($servidor1, $usuario1, $senha1, $banco1);
 
@@ -33,9 +33,7 @@ $conexao2 = new mysqli($servidor2, $usuario2, $senha2, $banco2);
 
 // Verifica se a conexão foi bem-sucedida com ambos os bancos
 if ($conexao1->connect_error || $conexao2->connect_error) {
-    header('Content-Type: application/json');
-    echo json_encode(['status' => 'error', 'message' => 'Erro na conexão com o banco de dados.']);
-    exit();
+    die("Erro na conexão com o banco de dados.");
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -59,8 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Verificação do Honeypot
     if (!empty($honeypot)) {
         // Submissão suspeita de bot
-        header('Content-Type: application/json');
-        echo json_encode(['status' => 'success']); // Retorna sucesso para evitar feedback aos bots
+        header('Location: sucesso.html');
         exit();
     }
 
@@ -70,15 +67,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($form_loaded_at == 0 || $time_diff < 5) {  // Se o formulário foi enviado muito rapidamente
         // Submissão suspeita de bot
-        header('Content-Type: application/json');
-        echo json_encode(['status' => 'success']); // Retorna sucesso para evitar feedback aos bots
+        header('Location: sucesso.html');
         exit();
     }
 
     // Validação básica dos campos
     if (empty($nome) || empty($email) || empty($ddd) || empty($telefone) || empty($cidade) || empty($estado) || empty($descricao)) {
-        header('Content-Type: application/json');
-        echo json_encode(['status' => 'error', 'message' => 'Todos os campos são obrigatórios.']);
+        echo "Todos os campos são obrigatórios.";
         exit();
     }
 
@@ -113,7 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $mail->Host       = 'mail.embrafer.com';
                 $mail->SMTPAuth   = true;
                 $mail->Username   = 'contato@estruturametalicapr.com.br';
-                $mail->Password   = 'SUA_SENHA_SMTP_AQUI'; // Substitua pela sua senha SMTP
+                $mail->Password   = 'Futgrass80802!';
                 $mail->SMTPSecure = 'tls';
                 $mail->Port       = 587;
 
@@ -143,25 +138,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 // Envia o e-mail
                 $mail->send();
 
-                // Retorna resposta de sucesso em JSON
-                header('Content-Type: application/json');
-                echo json_encode(['status' => 'success']);
+                // Redireciona para a página de sucesso
+                header('Location: sucesso.html');
                 exit();
             } catch (Exception $e) {
-                header('Content-Type: application/json');
-                echo json_encode(['status' => 'error', 'message' => 'Erro ao enviar e-mail.']);
+                // Em caso de erro no envio do e-mail, você pode tratar aqui
+                // Certifique-se de não enviar nenhuma saída ao navegador
+                // Por exemplo, você pode registrar o erro em um arquivo de log
+                error_log('Erro ao enviar e-mail: ' . $mail->ErrorInfo);
+                header('Location: sucesso.html');
                 exit();
             }
         } else {
-            header('Content-Type: application/json');
-            echo json_encode(['status' => 'error', 'message' => 'Erro ao inserir dados no banco de dados.']);
+            // Em caso de erro na inserção dos dados
+            // Novamente, evite enviar saída ao navegador
+            error_log('Erro ao inserir dados no banco de dados.');
+            header('Location: sucesso.html');
             exit();
         }
         $stmt1->close();
         $stmt2->close();
     } else {
-        header('Content-Type: application/json');
-        echo json_encode(['status' => 'error', 'message' => 'Erro ao preparar a consulta no banco de dados.']);
+        // Em caso de erro ao preparar as consultas
+        error_log('Erro ao preparar a consulta no banco de dados.');
+        header('Location: sucesso.html');
         exit();
     }
 
@@ -169,11 +169,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $conexao1->close();
     $conexao2->close();
 } else {
-    header('Content-Type: application/json');
-    echo json_encode(['status' => 'error', 'message' => 'Método de requisição inválido.']);
+    header('Location: sucesso.html');
     exit();
 }
 
-// Encerra o buffer de saída
-ob_end_flush();
-?>
+// Limpa o buffer de saída e encerra
+ob_end_clean();
