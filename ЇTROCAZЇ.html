@@ -37,23 +37,82 @@
 <meta name="coverage" content="Worldwide" />
 <link rel="sitemap" type="application/xml" title="Sitemap" href="https://estruturametalicapr.com.br/sitemap.xml" />
 <link rel="me" href="https://www.instagram.com/embrafer/" />
-		<link rel="shortcut icon" type="image/x-icon" href="../img/favicon.png">
+		<link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
         <!-- Place favicon.ico in the root directory -->
 
 		<!-- CSS here -->
-        <link rel="stylesheet" href="../css/bootstrap.min.css">
-        <link rel="stylesheet" href="../css/animate.min.css">
-        <link rel="stylesheet" href="../css/magnific-popup.css">
-        <link rel="stylesheet" href="../fontawesome/css/all.min.css">
-        <link rel="stylesheet" href="../css/dripicons.css">
-        <link rel="stylesheet" href="../css/slick.css">
-        <link rel="stylesheet" href="../css/meanmenu.css">
-        <link rel="stylesheet" href="../css/default.css">
-        <link rel="stylesheet" href="../css/style.css">
-        <link rel="stylesheet" href="../css/responsive.css">
-		<link rel="stylesheet" type="text/css" href="../estilo/wts.css">
-    </head>
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/animate.min.css">
+        <link rel="stylesheet" href="css/magnific-popup.css">
+        <link rel="stylesheet" href="fontawesome/css/all.min.css">
+        <link rel="stylesheet" href="css/dripicons.css">
+        <link rel="stylesheet" href="css/slick.css">
+        <link rel="stylesheet" href="css/meanmenu.css">
+        <link rel="stylesheet" href="css/default.css">
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/responsive.css">
+		<link rel="stylesheet" type="text/css" href="estilo/wts.css">
+    <link rel="stylesheet" href="stylescontato.css"></head>
     <body>
+<div class="floating-button">
+  <button id="openModalBtn">Solicitar Orçamento</button>
+</div>
+
+
+<!-- Modal -->
+  <div id="contactModal" class="modal" style="display:none;">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Solicitar Orçamento</h2>
+        
+        <form action="https://estruturametalicapr.com.br/processa_formulario.php" method="post" id="contact-form">
+          <div class="input-group">
+            <label for="nome">Nome Completo</label>
+            <input type="text" id="nome" name="nome" placeholder="Digite seu nome completo" required pattern="[A-Za-zÀ-ÿ\s]+" title="Somente letras são permitidas">
+          </div>
+          
+          <div class="input-group">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" placeholder="Digite seu e-mail" required>
+          </div>
+          
+          <div class="input-group">
+            <label for="telefone">Telefone</label>
+            <div class="phone-fields">
+              <input type="text" id="ddd" name="ddd" placeholder="DDD" maxlength="2" required pattern="\d{2}" title="Somente números são permitidos">
+              <input type="text" id="telefone" name="telefone" placeholder="Número" maxlength="9" pattern="\d{9}" title="Somente números são permitidos" required>
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <div class="input-group cidade">
+              <label for="cidade">Cidade</label>
+              <input type="text" id="cidade" name="cidade" placeholder="Digite sua cidade" required pattern="[A-Za-zÀ-ÿ\s]+" title="Somente letras são permitidas">
+            </div>
+            <div class="input-group estado">
+              <label for="estado">Estado</label>
+              <input type="text" id="estado" name="estado" placeholder="Digite" maxlength="2" pattern="[A-Za-z]{2}" title="Apenas 2 letras são permitidas" required>
+            </div>
+          </div>
+          
+          <div class="input-group">
+            <label for="descricao">Descrição do Orçamento</label>
+            <textarea id="descricao" name="descricao" placeholder="Descreva o serviço ou estrutura metálica que deseja orçar" required></textarea>
+          </div>
+          
+          <!-- Campo Honeypot escondido -->
+          <div style="display:none;">
+            <label for="honeypot">Não preencha este campo se for humano:</label>
+            <input type="text" id="honeypot" name="honeypot">
+          </div>
+          
+          <!-- Campo Oculto para o Temporizador -->
+          <input type="hidden" id="form_loaded_at" name="form_loaded_at" value="">
+          
+          <button type="submit">Enviar</button>
+        </form>
+      </div>
+    </div>
         <!-- header -->
         <header class="header-area">  
 			<div class="header-top second-header d-none d-md-block">
@@ -97,7 +156,7 @@
                         <div class="row align-items-center">
                             <div class="col-xl-2 col-lg-2">
                                 <div class="logo">
-                                    <a href="https://estruturametalicapr.com.br"><img src="../img/logo/logo-nova.png" alt="logo"></a>
+                                    <a href="https://estruturametalicapr.com.br"><img src="img/logo/logo-nova.png" alt="logo"></a>
                                 </div>
                             </div>
                             <div class="col-xl-9 col-lg-9">
@@ -109,101 +168,101 @@
     <li class="has-sub">
         <a href="sobre-nos" title="Conheça mais sobre a Estrutura Metálica PR">Sobre Nós</a>
         <ul>
-            <li><a href="../historia-da-empresa" title="Leia sobre a história da nossa empresa">História da empresa</a></li>
-            <li><a href="../nossa-missao" title="Descubra nossa missão">Missão</a></li>
-            <li><a href="../visao-da-estrutura-pr" title="Saiba mais sobre nossa visão">Visão</a></li>
-            <li><a href="../nossos-valores" title="Conheça os valores que nos orientam">Valores</a></li>
+            <li><a href="historia-da-empresa" title="Leia sobre a história da nossa empresa">História da empresa</a></li>
+            <li><a href="nossa-missao" title="Descubra nossa missão">Missão</a></li>
+            <li><a href="visao-da-estrutura-pr" title="Saiba mais sobre nossa visão">Visão</a></li>
+            <li><a href="nossos-valores" title="Conheça os valores que nos orientam">Valores</a></li>
         </ul>
     </li>
     <li class="has-sub">
-        <a href="../estruturas-metalicas" title="Explore nossos serviços em Estruturas Metálicas">Estruturas Metálicas</a>
+        <a href="estruturas-metalicas" title="Explore nossos serviços em Estruturas Metálicas">Estruturas Metálicas</a>
         <ul>
             <li class="has-sub">
-                <a href="../projetos-construcao" title="Informações sobre Projeto e Construção de Estruturas Metálicas">Projeto e construção</a>
+                <a href="projetos-construcao" title="Informações sobre Projeto e Construção de Estruturas Metálicas">Projeto e construção</a>
                 <ul>
-                    <li><a href="../servicos/estruturametalica/construcao-estruturas" title="Construção de Estruturas Metálicas">Construção de estruturas metálicas</a></li>
-                    <li><a href="../servicos/estruturametalica/plataformas-industriais" title="Plataformas Industriais">Plataformas Industriais</a></li>
-                    <li><a href="../servicos/estruturametalica/escadas-estruturas-metalicas" title="Escadas Metálicas">Escadas Metálicas</a></li>
-                    <li><a href="../servicos/construir-galpoes" title="Galpões Metálicos">Galpões Metálicos</a></li>
-                    <li><a href="../servicos/barracao-estrutura-metalica" title="Barracão Metálico">Barracão Metálico</a></li>
+                    <li><a href="servicos/estruturametalica/construcao-estruturas" title="Construção de Estruturas Metálicas">Construção de estruturas metálicas</a></li>
+                    <li><a href="servicos/estruturametalica/plataformas-industriais" title="Plataformas Industriais">Plataformas Industriais</a></li>
+                    <li><a href="servicos/estruturametalica/escadas-estruturas-metalicas" title="Escadas Metálicas">Escadas Metálicas</a></li>
+                    <li><a href="servicos/construir-galpoes" title="Galpões Metálicos">Galpões Metálicos</a></li>
+                    <li><a href="servicos/barracao-estrutura-metalica" title="Barracão Metálico">Barracão Metálico</a></li>
                 </ul>
             </li>
             <li class="has-sub">
-                <a href="../infra-estrutura-rodoviaria" title="Infraestrutura Rodoviária">Infra Rodoviários</a>
+                <a href="infra-estrutura-rodoviaria" title="Infraestrutura Rodoviária">Infra Rodoviários</a>
                 <ul>
-                    <li><a href="../servicos/rodoviario/pontes-metalicas" title="Pontes Metálicas">Pontes Metálicas</a></li>
-                    <li><a href="../servicos/rodoviario/viadutos-constucao" title="Viadutos">Viaduto</a></li>
-                    <li><a href="../servicos/rodoviario/passarela-metalica" title="Passarelas Metálicas">Passarelas Metálicas</a></li>
+                    <li><a href="servicos/rodoviario/pontes-metalicas" title="Pontes Metálicas">Pontes Metálicas</a></li>
+                    <li><a href="servicos/rodoviario/viadutos-constucao" title="Viadutos">Viaduto</a></li>
+                    <li><a href="servicos/rodoviario/passarela-metalica" title="Passarelas Metálicas">Passarelas Metálicas</a></li>
                 </ul>
             </li>
             <li class="has-sub">
-                <a href="../projetos-especiais-metalicos" title="Estruturas Especiais para diversos projetos">Estruturas especiais</a>
+                <a href="projetos-especiais-metalicos" title="Estruturas Especiais para diversos projetos">Estruturas especiais</a>
                 <ul>
-                    <li><a href="../servicos/estruturametalica/mezaninos-estruturas-metalica" title="Mezaninos Metálicos">Mezaninos Metálicos</a></li>
-                    <li><a href="../servicos/estruturametalica/estruturas-eventos-exposicoes" title="Estruturas para Eventos e Exposições">Estruturas para eventos e exposições</a></li>
-                    <li><a href="../servicos/estruturametalica/estruturas-energias-renovaveis" title="Estruturas para Energias Renováveis">Estruturas para energias renováveis</a></li>
-                </ul>
-            </li>
-        </ul>
-    </li>
-    <li class="has-sub">
-        <a href="../servicos-tecnicos" title="Conheça nossos Serviços Técnicos">Serviços Técnicos</a>
-        <ul>
-            <li class="has-sub">
-                <a href="../sistema-cobertura-metalica" title="Sistemas de Cobertura Metálica">Sistemas de cobertura</a>
-                <ul>
-                    <li><a href="../servicos/cobertura/instalacao-coberturas-metalicas" title="Instalação de Coberturas Metálicas">Instalação de coberturas metálicas</a></li>
-                    <li><a href="../servicos/cobertura/manutencao-modernizacao-coberturas" title="Manutenção e Modernização de Coberturas">Manutenção e modernização de coberturas</a></li>
-                    <li><a href="../servicos/estruturametalica/manutencao-estruturas-metalicas" title="Manutenção de Estruturas Metálicas">Manutenção e modernização de coberturas</a></li>
+                    <li><a href="servicos/estruturametalica/mezaninos-estruturas-metalica" title="Mezaninos Metálicos">Mezaninos Metálicos</a></li>
+                    <li><a href="servicos/estruturametalica/estruturas-eventos-exposicoes" title="Estruturas para Eventos e Exposições">Estruturas para eventos e exposições</a></li>
+                    <li><a href="servicos/estruturametalica/estruturas-energias-renovaveis" title="Estruturas para Energias Renováveis">Estruturas para energias renováveis</a></li>
                 </ul>
             </li>
         </ul>
     </li>
     <li class="has-sub">
-        <a href="../solucoes-industriais" title="Soluções Industriais personalizadas">Soluções Industriais</a>
+        <a href="servicos-tecnicos" title="Conheça nossos Serviços Técnicos">Serviços Técnicos</a>
         <ul>
             <li class="has-sub">
-                <a href="../estruturas-para-armazenamento" title="Estruturas para Armazenagem e Logística">Armazenagem e Logistica</a>
+                <a href="sistema-cobertura-metalica" title="Sistemas de Cobertura Metálica">Sistemas de cobertura</a>
                 <ul>
-				    <li><a href="../sistemas-armazenagem-almoxarifado" title="Estruturas para Almoxarifados">Estruturas para Almoxarifados</a></li>
-                    <li><a href="../servicos/estruturametalica/estruturas-centros-distribuicao" title="Estruturas para Centros de Distribuição">Estruturas Centros de Distribuição</a></li>
-                </ul>
-            </li>
-            <li class="has-sub">
-                <a href="../infraestrutura-industrial" title="Infraestrutura Industrial para diversos setores">Infraestrutura Industrial</a>
-                <ul>
-                    <li><a href="../sistemas-armazenagem-metal" title="Estruturas para Maquinário e Equipamentos">Estruturas para Maquinário e Equipamentos</a></li>
-                    <li><a href="../servico-de-corte-dobra-metais" title="Serviços de Corte e Dobra de Metais">Serviços de Corte e Dobra de Metais</a></li>
+                    <li><a href="servicos/cobertura/instalacao-coberturas-metalicas" title="Instalação de Coberturas Metálicas">Instalação de coberturas metálicas</a></li>
+                    <li><a href="servicos/cobertura/manutencao-modernizacao-coberturas" title="Manutenção e Modernização de Coberturas">Manutenção e modernização de coberturas</a></li>
+                    <li><a href="servicos/estruturametalica/manutencao-estruturas-metalicas" title="Manutenção de Estruturas Metálicas">Manutenção e modernização de coberturas</a></li>
                 </ul>
             </li>
         </ul>
     </li>
     <li class="has-sub">
-        <a href="../projetos-especiais" title="Projetos Especiais em Estruturas Metálicas">Projetos Especiais</a>
+        <a href="solucoes-industriais" title="Soluções Industriais personalizadas">Soluções Industriais</a>
         <ul>
             <li class="has-sub">
-                <a href="../arquitetura-design" title="Arquitetura e Design com Estruturas Metálicas">Arquitetura & design</a>
+                <a href="estruturas-para-armazenamento" title="Estruturas para Armazenagem e Logística">Armazenagem e Logistica</a>
                 <ul>
-                    <li><a href="../servicos/estruturametalica/estruturas-para-residencias-casas" title="Estruturas Metálicas para Residências">Estruturas para residências</a></li>
-                    <li><a href="../servicos/estruturametalica/projetos-personalizados" title="Projetos Personalizados em Estrutura Metálica">Projetos personalizados</a></li>
+				    <li><a href="sistemas-armazenagem-almoxarifado" title="Estruturas para Almoxarifados">Estruturas para Almoxarifados</a></li>
+                    <li><a href="servicos/estruturametalica/estruturas-centros-distribuicao" title="Estruturas para Centros de Distribuição">Estruturas Centros de Distribuição</a></li>
                 </ul>
             </li>
             <li class="has-sub">
-                <a href="../sustentabilidade-do-aco" title="Sustentabilidade e Inovação em Estruturas Metálicas">Sustentabilidade & inovação</a>
+                <a href="infraestrutura-industrial" title="Infraestrutura Industrial para diversos setores">Infraestrutura Industrial</a>
                 <ul>
-                    <li><a href="../estruturas-projetos-sustentabilidade" title="Estruturas Metálicas para Projetos de Sustentabilidade">Estruturas para projetos de sustentabilidade</a></li>
-                    <li><a href="../inovacoes-engenharia-metalica" title="Inovações em Engenharia Metálica">Inovações em engenharia metálica</a></li>
+                    <li><a href="sistemas-armazenagem-metal" title="Estruturas para Maquinário e Equipamentos">Estruturas para Maquinário e Equipamentos</a></li>
+                    <li><a href="servico-de-corte-dobra-metais" title="Serviços de Corte e Dobra de Metais">Serviços de Corte e Dobra de Metais</a></li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li class="has-sub">
+        <a href="projetos-especiais" title="Projetos Especiais em Estruturas Metálicas">Projetos Especiais</a>
+        <ul>
+            <li class="has-sub">
+                <a href="arquitetura-design" title="Arquitetura e Design com Estruturas Metálicas">Arquitetura & design</a>
+                <ul>
+                    <li><a href="servicos/estruturametalica/estruturas-para-residencias-casas" title="Estruturas Metálicas para Residências">Estruturas para residências</a></li>
+                    <li><a href="servicos/estruturametalica/projetos-personalizados" title="Projetos Personalizados em Estrutura Metálica">Projetos personalizados</a></li>
                 </ul>
             </li>
             <li class="has-sub">
-                <a href="../mais-servicos" title="Conheça mais serviços oferecidos por nós">Outros</a>
+                <a href="sustentabilidade-do-aco" title="Sustentabilidade e Inovação em Estruturas Metálicas">Sustentabilidade & inovação</a>
                 <ul>
-                    <li><a href="../servicos/estruturametalica/concertinas-curitiba" title="Concertinas em Curitiba">Concertinas</a></li>
-                    <li><a href="../servicos/estruturametalica/quadras-esportivas-construcao" title="Construção de Quadras Esportivas">Quadras Esportivas</a></li>
-                    <li><a href="../servicos/estruturametalica/telas-estruturas-metalica" title="Telas Metálicas">Telas Metálicas</a></li>
-                    <li><a href="../servicos/estruturametalica/alambrados-curitiba" title="Alambrados em Curitiba">Alambrados</a></li>
-                    <li><a href="../servicos/estruturametalica/torres-telecomunicacao-construcao" title="Construção de Torres Metálicas para Telecomunicação">Torres Metálicas</a></li>
-                    <li><a href="../servicos/estruturametalica/grama-sintetica" title="Grama Sintética">Grama Sintética</a></li>
+                    <li><a href="estruturas-projetos-sustentabilidade" title="Estruturas Metálicas para Projetos de Sustentabilidade">Estruturas para projetos de sustentabilidade</a></li>
+                    <li><a href="inovacoes-engenharia-metalica" title="Inovações em Engenharia Metálica">Inovações em engenharia metálica</a></li>
+                </ul>
+            </li>
+            <li class="has-sub">
+                <a href="mais-servicos" title="Conheça mais serviços oferecidos por nós">Outros</a>
+                <ul>
+                    <li><a href="servicos/estruturametalica/concertinas-curitiba" title="Concertinas em Curitiba">Concertinas</a></li>
+                    <li><a href="servicos/estruturametalica/quadras-esportivas-construcao" title="Construção de Quadras Esportivas">Quadras Esportivas</a></li>
+                    <li><a href="servicos/estruturametalica/telas-estruturas-metalica" title="Telas Metálicas">Telas Metálicas</a></li>
+                    <li><a href="servicos/estruturametalica/alambrados-curitiba" title="Alambrados em Curitiba">Alambrados</a></li>
+                    <li><a href="servicos/estruturametalica/torres-telecomunicacao-construcao" title="Construção de Torres Metálicas para Telecomunicação">Torres Metálicas</a></li>
+                    <li><a href="servicos/estruturametalica/grama-sintetica" title="Grama Sintética">Grama Sintética</a></li>
                 </ul>
             </li>
         </ul>
@@ -245,7 +304,7 @@
         <!-- main-area -->
         <main>
             <!-- breadcrumb-area -->
-            <section class="breadcrumb-area d-flex align-items-center" style="background-image:url(../img/testimonial/fundo.jpg)">
+            <section class="breadcrumb-area d-flex align-items-center" style="background-image:url(img/testimonial/fundo.jpg)">
                 <div class="container">
                     <div class="row">
                         <div class="col-xl-6 offset-xl-3 col-lg-8 offset-lg-2">
@@ -275,13 +334,13 @@
     <div class="service-detail">
         <div class="images-box row">
             <div class="column col-lg-4 col-md-4 col-sm-4 wow fadeInRight pro-col">
-                <figure class="image"><a href="../images/estruturas-metalicas/estrutura1.jpg" class="lightbox-image popup-image" data-fancybox="services"><img src="../images/estruturas-metalicas/estrutura1.jpg" alt="Estrutura Metálica 1"></a></figure>
+                <figure class="image"><a href="images/estruturas-metalicas/estrutura1.jpg" class="lightbox-image popup-image" data-fancybox="services"><img src="images/estruturas-metalicas/estrutura1.jpg" alt="Estrutura Metálica 1"></a></figure>
             </div>
             <div class="column col-lg-4 col-md-4 col-sm-4 wow fadeInRight pro-col">
-                <figure class="image"><a href="../images/estruturas-metalicas/estrutura2.jpg" class="lightbox-image popup-image" data-fancybox="services"><img src="../images/estruturas-metalicas/estrutura2.jpg" alt="Estrutura Metálica 2"></a></figure>
+                <figure class="image"><a href="images/estruturas-metalicas/estrutura2.jpg" class="lightbox-image popup-image" data-fancybox="services"><img src="images/estruturas-metalicas/estrutura2.jpg" alt="Estrutura Metálica 2"></a></figure>
             </div>
             <div class="column col-lg-4 col-md-4 col-sm-4 wow fadeInRight pro-col">
-                <figure class="image"><a href="../images/estruturas-metalicas/estrutura3.jpg" class="lightbox-image popup-image" data-fancybox="services"><img src="../images/estruturas-metalicas/estrutura3.jpg" alt="Estrutura Metálica 3"></a></figure>
+                <figure class="image"><a href="images/estruturas-metalicas/estrutura3.jpg" class="lightbox-image popup-image" data-fancybox="services"><img src="images/estruturas-metalicas/estrutura3.jpg" alt="Estrutura Metálica 3"></a></figure>
             </div>
         </div>
 
@@ -302,7 +361,7 @@
                     </ul>
                 </div>
                 <div class="image-column col-xl-6 col-lg-12 col-md-12">
-                    <figure class="image"><a href="../images/estruturas-metalicas/estrutura-metalica.jpg" class="lightbox-image popup-image"><img src="../images/estruturas-metalicas/estrutura-metalica.jpg" alt="Estrutura Metálica em Curitiba"></a></figure>
+                    <figure class="image"><a href="images/estruturas-metalicas/estrutura-metalica.jpg" class="lightbox-image popup-image"><img src="images/estruturas-metalicas/estrutura-metalica.jpg" alt="Estrutura Metálica em Curitiba"></a></figure>
                 </div>
             </div>
         </div>
@@ -376,13 +435,13 @@
                             <div class="widget-content">
                                 <!-- Services Category -->
                                 <ul class="services-categories">
-                                    <li><a href="../estruturas-metalicas" title="Explore nossos serviços em Estruturas Metálicas">Estruturas Metálicas</a></li>
-                                    <li class="active"><a href="../infra-estrutura-rodoviaria" title="Infraestrutura Rodoviária">Infra Rodoviários</a></li>
-                                    <li><a href="../projetos-especiais-metalicos" title="Estruturas Especiais para diversos projetos">Estruturas especiais</a></li>
-                                    <li><a href="../servicos-tecnicos" title="Conheça nossos Serviços Técnicos">Serviços Técnicos</a></li>                                    
-                                    <li><a href="../solucoes-industriais" title="Soluções Industriais personalizadas">Soluções Industriais</a></li>
-                                    <li><a href="../projetos-especiais" title="Projetos Especiais em Estruturas Metálicas">Projetos Especiais</a></li>
-                                    <li><a href="../sustentabilidade-do-aco" title="Sustentabilidade e Inovação em Estruturas Metálicas">Sustentabilidade & inovação</a></li>
+                                    <li><a href="estruturas-metalicas" title="Explore nossos serviços em Estruturas Metálicas">Estruturas Metálicas</a></li>
+                                    <li class="active"><a href="infra-estrutura-rodoviaria" title="Infraestrutura Rodoviária">Infra Rodoviários</a></li>
+                                    <li><a href="projetos-especiais-metalicos" title="Estruturas Especiais para diversos projetos">Estruturas especiais</a></li>
+                                    <li><a href="servicos-tecnicos" title="Conheça nossos Serviços Técnicos">Serviços Técnicos</a></li>                                    
+                                    <li><a href="solucoes-industriais" title="Soluções Industriais personalizadas">Soluções Industriais</a></li>
+                                    <li><a href="projetos-especiais" title="Projetos Especiais em Estruturas Metálicas">Projetos Especiais</a></li>
+                                    <li><a href="sustentabilidade-do-aco" title="Sustentabilidade e Inovação em Estruturas Metálicas">Sustentabilidade & inovação</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -409,14 +468,13 @@
 		
         </main>
         <!-- main-area-end -->
-<a class="corzinha" href="https://wa.me/5541999003084">
+<a class="corzinha" href="https://bit.ly/estruturapr">
 <div id="whatswidget-pre-wrapper" >
 <div id="whatswidget-widget-wrapper" class="whatswidget-widget-wrapper" style="all:revert;">
-<div id="whatswidget-conversation-message-outer" class="whatswidget-conversation-message-outer" style="all:revert;"> <span id="whatswidget-text-header-outer" class="whatswidget-text-header-outer" style="all:revert;">Empresa</span><br>
-<div id="whatswidget-text-message-outer" class="whatswidget-text-message-outer" style="all:revert;">Bem vindo, precisa de ajuda? = )</div></div>
+
 <div class="whatswidget-button-wrapper" style="all:revert;">
 <div class="whatswidget-button" id="whatswidget-button" style="all:revert;">
-<img src="../wts.svg">
+<img src="wts.svg">
 </div>
 </div>
 </div>
@@ -459,11 +517,11 @@
                         </div>
                         <div class="footer-link">
                             <ul>
-                                <li><a href="../historia-da-empresa"><i class="fas fa-chevron-right"></i> Empresa</a></li>
-                                <li><a href="../servicos-tecnicos"><i class="fas fa-chevron-right"></i> Serviços</a></li>
-                                <li><a href="../atendimento-cidades"><i class="fas fa-chevron-right"></i> Atendimento</a></li>
-                                <li><a href="../contato-estrutura-metalica"><i class="fas fa-chevron-right"></i> Contato</a></li>
-                                <li><a href="../contato-estrutura-metalica"><i class="fas fa-chevron-right"></i> Orçamento</a></li>
+                                <li><a href="historia-da-empresa"><i class="fas fa-chevron-right"></i> Empresa</a></li>
+                                <li><a href="servicos-tecnicos"><i class="fas fa-chevron-right"></i> Serviços</a></li>
+                                <li><a href="atendimento-cidades"><i class="fas fa-chevron-right"></i> Atendimento</a></li>
+                                <li><a href="contato-estrutura-metalica"><i class="fas fa-chevron-right"></i> Contato</a></li>
+                                <li><a href="contato-estrutura-metalica"><i class="fas fa-chevron-right"></i> Orçamento</a></li>
                             </ul>
                         </div>
                     </div>
@@ -476,11 +534,11 @@
                         </div>
                         <div class="footer-link">
                             <ul>
-                                <li><a href="../sistema-cobertura-metalica"><i class="fas fa-chevron-right"></i> Cobertura Metálica</a></li>
-                                <li><a href="../servicos/estruturametalica/mezaninos-estruturas-metalica"><i class="fas fa-chevron-right"></i> Mezanino</a></li>
-                                <li><a href="../servicos/estruturametalica/escadas-estruturas-metalicas"><i class="fas fa-chevron-right"></i> Escadas Metálicas</a></li>
-                                <li><a href="../servicos/estruturametalica/manutencao-estruturas-metalicas"><i class="fas fa-chevron-right"></i> Manutenção</a></li>
-                                <li><a href="../servicos/construir-galpoes"><i class="fas fa-chevron-right"></i> Construir Galpões</a></li>
+                                <li><a href="sistema-cobertura-metalica"><i class="fas fa-chevron-right"></i> Cobertura Metálica</a></li>
+                                <li><a href="servicos/estruturametalica/mezaninos-estruturas-metalica"><i class="fas fa-chevron-right"></i> Mezanino</a></li>
+                                <li><a href="servicos/estruturametalica/escadas-estruturas-metalicas"><i class="fas fa-chevron-right"></i> Escadas Metálicas</a></li>
+                                <li><a href="servicos/estruturametalica/manutencao-estruturas-metalicas"><i class="fas fa-chevron-right"></i> Manutenção</a></li>
+                                <li><a href="servicos/construir-galpoes"><i class="fas fa-chevron-right"></i> Construir Galpões</a></li>
                             </ul>
                         </div>
                     </div>
@@ -532,27 +590,27 @@
 
 
 		<!-- JS here -->
-        <script src="../js/vendor/modernizr-3.5.0.min.js"></script>
-        <script src="../js/vendor/jquery-1.12.4.min.js"></script>
-        <script src="../js/popper.min.js"></script>
-        <script src="../js/bootstrap.min.js"></script>
-        <script src="../js/one-page-nav-min.js"></script>
-        <script src="../js/slick.min.js"></script>
-        <script src="../js/ajax-form.js"></script>
-        <script src="../js/paroller.js"></script>
-        <script src="../js/wow.min.js"></script>
-        <script src="../js/js_isotope.pkgd.min.js"></script>
-        <script src="../js/imagesloaded.min.js"></script>
-        <script src="../js/jquery.meanmenu.min.js"></script>
-        <script src="../js/parallax.min.js"></script>
-        <script src="../js/jquery.waypoints.min.js"></script>
-        <script src="../js/jquery.counterup.min.js"></script>
-        <script src="../js/jquery.scrollUp.min.js"></script>
-        <script src="../js/parallax-scroll.js"></script>
-        <script src="../js/jquery.magnific-popup.min.js"></script>
-        <script src="../js/element-in-view.js"></script>
-        <script src="../js/main.js"></script>
-    </body>
+        <script src="js/vendor/modernizr-3.5.0.min.js"></script>
+        <script src="js/vendor/jquery-1.12.4.min.js"></script>
+        <script src="js/popper.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/one-page-nav-min.js"></script>
+        <script src="js/slick.min.js"></script>
+        <script src="js/ajax-form.js"></script>
+        <script src="js/paroller.js"></script>
+        <script src="js/wow.min.js"></script>
+        <script src="js/js_isotope.pkgd.min.js"></script>
+        <script src="js/imagesloaded.min.js"></script>
+        <script src="js/jquery.meanmenu.min.js"></script>
+        <script src="js/parallax.min.js"></script>
+        <script src="js/jquery.waypoints.min.js"></script>
+        <script src="js/jquery.counterup.min.js"></script>
+        <script src="js/jquery.scrollUp.min.js"></script>
+        <script src="js/parallax-scroll.js"></script>
+        <script src="js/jquery.magnific-popup.min.js"></script>
+        <script src="js/element-in-view.js"></script>
+        <script src="js/main.js"></script>
+    <script src="scriptcontato.js"></script></body>
 
 
 </html>
