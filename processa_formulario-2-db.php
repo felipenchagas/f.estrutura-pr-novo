@@ -41,14 +41,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // Captura e sanitiza os dados do formulário
-    $nome = sanitizar($_POST['nome'] ?? '');
-    $email = sanitizar($_POST['email'] ?? '');
-    $ddd = sanitizar($_POST['ddd'] ?? '');
-    $telefone = sanitizar($_POST['telefone'] ?? '');
-    $cidade = sanitizar($_POST['cidade'] ?? '');
-    $estado = sanitizar($_POST['estado'] ?? '');
-    $descricao = sanitizar($_POST['descricao'] ?? '');
-    $honeypot = sanitizar($_POST['honeypot'] ?? '');
+    $nome = sanitizar(isset($_POST['nome']) ? $_POST['nome'] : '');
+    $email = sanitizar(isset($_POST['email']) ? $_POST['email'] : '');
+    $ddd = sanitizar(isset($_POST['ddd']) ? $_POST['ddd'] : '');
+    $telefone = sanitizar(isset($_POST['telefone']) ? $_POST['telefone'] : '');
+    $cidade = sanitizar(isset($_POST['cidade']) ? $_POST['cidade'] : '');
+    $estado = sanitizar(isset($_POST['estado']) ? $_POST['estado'] : '');
+    $descricao = sanitizar(isset($_POST['descricao']) ? $_POST['descricao'] : '');
+    $honeypot = sanitizar(isset($_POST['honeypot']) ? $_POST['honeypot'] : '');
     $form_loaded_at = isset($_POST['form_loaded_at']) ? intval($_POST['form_loaded_at']) : 0;
 
     // Verificação do Honeypot
