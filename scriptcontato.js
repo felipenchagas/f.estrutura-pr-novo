@@ -30,39 +30,40 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         form.addEventListener('submit', function(event) {
+            event.preventDefault();  // Impede o envio padrão do formulário
+
             const currentTime = Date.now();
             const formLoadedAtValue = parseInt(document.getElementById('form_loaded_at').value, 10);
             const timeDiff = (currentTime - formLoadedAtValue) / 1000;
 
             if (formLoadedAtValue === 0 || timeDiff < 5) {
                 alert("Você está preenchendo o formulário rápido demais! Por favor, tente novamente.");
-                event.preventDefault();  // Impede o envio
                 return;
             }
 
             const honeypot = document.getElementById('honeypot');
             if (honeypot && honeypot.value !== "") {
                 alert("Erro: Formulário inválido.");
-                event.preventDefault();
                 return;
             }
-
-            // Se o formulário passou pelas validações, adicionamos o redirecionamento
-            event.preventDefault();  // Bloqueia o comportamento padrão de submissão
 
             // Envia o formulário via AJAX
             $.ajax({
                 url: form.action,  // O URL do action do formulário
                 method: form.method,  // O método (POST)
                 data: $(form).serialize(),
+                dataType: 'json', // Especifica que esperamos um JSON de resposta
                 success: function(response) {
-                    console.log('Formulário enviado com sucesso:', response);
-                    // Redireciona para a página de sucesso
-                    window.location.href = 'sucesso.html';
+                    if (response.status === 'success') {
+                        // Redireciona para a página de sucesso
+                        window.location.href = 'sucesso.html';
+                    } else {
+                        alert('Erro: ' + response.message);
+                    }
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     console.error('Erro no envio do formulário:', textStatus, errorThrown);
-                    alert('Erro no envio do formulário.');
+                    alert('Ocorreu um erro ao enviar o formulário.');
                 }
             });
         });
