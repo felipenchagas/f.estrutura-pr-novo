@@ -14,7 +14,7 @@ require_once("novo/src/Exception.php");
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-// Conectar ao primeiro banco de dados
+// Conectar ao primeiro banco de dados (verifique as credenciais)
 $servidor1 = "162.214.145.189";
 $usuario1 = "empre028_felipe";
 $senha1 = "Iuh86gwt--@Z123";
@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit();
     }
 
-    // Validação básica dos campos
+    // Validação básica dos campos (já realizada no frontend, mas reforçada aqui)
     if (empty($nome) || empty($email) || empty($ddd) || empty($telefone) || empty($cidade) || empty($estado) || empty($descricao)) {
         echo "Todos os campos são obrigatórios.";
         exit();
