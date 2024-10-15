@@ -56,6 +56,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 data: formData,
                 dataType: 'json',
                 success: function(response) {
+                    console.log(response); // Para depuração
+
                     if (response.status === 'success') {
                         // Exibe a mensagem de sucesso no modal
                         const modalContent = document.querySelector('.modal-content');

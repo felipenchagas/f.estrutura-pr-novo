@@ -1,13 +1,11 @@
 <?php
 session_start();
 
-// Desative a exibição de erros em produção
-ini_set('display_errors', 0);
-ini_set('display_startup_errors', 0);
-error_reporting(0);
-
-// Inicia o buffer de saída
-ob_start();
+// Para depuração, ative a exibição de erros temporariamente
+// Remova ou comente estas linhas em produção
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 // Inclui o PHPMailer
 require_once("novo/src/PHPMailer.php");
@@ -20,14 +18,14 @@ use PHPMailer\PHPMailer\Exception;
 // Conectar ao primeiro banco de dados
 $servidor1 = "162.214.145.189";
 $usuario1 = "empre028_felipe";
-$senha1 = "Iuh86gwt--@Z123";
+$senha1 = "Iuh86gwt--@Z123"; // **ATENÇÃO:** Remova esta senha do código público imediatamente
 $banco1 = "empre028_estruturapr";
 $conexao1 = new mysqli($servidor1, $usuario1, $senha1, $banco1);
 
 // Conectar ao segundo banco de dados (Locaweb)
 $servidor2 = "localhost";
 $usuario2 = "primeiro_estrupr";
-$senha2 = "uRXA1r9Z7pv~Cw2";
+$senha2 = "uRXA1r9Z7pv~Cw2"; // **ATENÇÃO:** Remova esta senha do código público imediatamente
 $banco2 = "primeiro_estruturapr";
 $conexao2 = new mysqli($servidor2, $usuario2, $senha2, $banco2);
 
@@ -112,7 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $mail->Host       = 'mail.embrafer.com';
                 $mail->SMTPAuth   = true;
                 $mail->Username   = 'contato@estruturametalicapr.com.br';
-                $mail->Password   = 'Futgrass80802!';
+                $mail->Password   = 'Futgrass80802!'; // **ATENÇÃO:** Remova esta senha do código público imediatamente
                 $mail->SMTPSecure = 'tls';
                 $mail->Port       = 587;
 
@@ -172,7 +170,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     echo json_encode(['status' => 'error', 'message' => 'Método de requisição inválido.']);
     exit();
 }
-
-// Limpa o buffer de saída e encerra
-ob_end_clean();
 ?>
