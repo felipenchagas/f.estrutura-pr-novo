@@ -437,51 +437,61 @@ em Construções de Galpões</h2>
             <span>Contato</span>
             <h2>Entre em Contato Conosco</h2>
         </div>
-<form action="envia.php" method="post" class="contact-form wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="contact-field p-relative c-name mb-20">                                    
-                <input type="text" name="nomeremetente" placeholder="Seu Nome">
-            </div>                               
+
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Solicitar Orçamento</h2>
+            
+            <form action="processa_formulario-2-db.php" method="post" id="contact-form">
+                <div class="input-group">
+                    <label for="nome">Nome Completo</label>
+                    <input type="text" id="nome" name="nome" placeholder="Digite seu nome completo" required pattern="[A-Za-zÀ-ÿ\s]+" title="Somente letras são permitidas">
+                </div>
+                
+                <div class="input-group">
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" name="email" placeholder="Digite seu e-mail" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="telefone">Telefone</label>
+                    <div class="phone-fields">
+                        <input type="text" id="ddd" name="ddd" placeholder="DDD" maxlength="2" required pattern="\d{2}" title="Somente números são permitidos">
+                        <input type="text" id="telefone" name="telefone" placeholder="Número" maxlength="9" pattern="\d{8,9}" title="Somente números são permitidos" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="input-group cidade">
+                        <label for="cidade">Cidade</label>
+                        <input type="text" id="cidade" name="cidade" placeholder="Digite sua cidade" required pattern="[A-Za-zÀ-ÿ\s]+" title="Somente letras são permitidas">
+                    </div>
+                    <div class="input-group estado">
+                        <label for="estado">Estado</label>
+                        <input type="text" id="estado" name="estado" placeholder="Digite" maxlength="2" pattern="[A-Za-z]{2}" title="Apenas 2 letras são permitidas" required>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="descricao">Descrição do Orçamento</label>
+                    <textarea id="descricao" name="descricao" placeholder="Descreva o serviço ou estrutura metálica que deseja orçar" required></textarea>
+                </div>
+                
+                <!-- Campo Honeypot escondido -->
+                <div style="display:none;">
+                    <label for="honeypot">Não preencha este campo se for humano:</label>
+                    <input type="text" id="honeypot" name="honeypot">
+                </div>
+                
+                <!-- Campo Oculto para o Temporizador -->
+                <input type="hidden" id="form_loaded_at" name="form_loaded_at" value="">
+                
+                <button type="submit">Enviar</button>
+            </form>
         </div>
-        <div class="col-lg-4">                               
-            <div class="contact-field p-relative c-subject mb-20">                                   
-                <input type="text" name="ddd" placeholder="00">
-            </div>
-        </div>  
-		        <div class="col-lg-8">                               
-            <div class="contact-field p-relative c-subject mb-20">                                   
-                <input type="text" name="telefone" placeholder="Telefone">
-            </div>
-        </div>  
-        <div class="col-lg-12">                               
-            <div class="contact-field p-relative c-email mb-20">                                    
-                <input type="email" name="emailremetente" placeholder="Seu E-mail">
-            </div>                                
-        </div>
-        <div class="col-lg-12">                               
-            <div class="contact-field p-relative c-subject mb-20">                                   
-                <input type="text" name="cidade" placeholder="Cidade">
-            </div>
-        </div> 
-        <div class="col-lg-12">                               
-            <div class="contact-field p-relative c-subject mb-20">                                   
-                <input type="text" name="assunto" placeholder="Assunto">
-            </div>
-        </div>  		
-		
-        <div class="col-lg-12">
-            <div class="contact-field p-relative c-message mb-45">                                  
-                <textarea name="mensagem" id="mensagem" cols="30" rows="10" placeholder="Sua Mensagem"></textarea>
-            </div>
-            <button type="submit" class="btn ss-btn" data-animation="fadeInRight" data-delay=".8s">Enviar Mensagem</button>                          
-        </div>
-    </div>
-</form>
 
     </div>
 </div>
-
                     
                 </div>
                
