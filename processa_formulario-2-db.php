@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (!empty($honeypot)) {
         // Submissão suspeita de bot
         // Redireciona silenciosamente para success.html para evitar feedback aos bots
-        header('Location: success.html');
+        header('Location: successo.html');
         exit();
     }
 
@@ -79,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($form_loaded_at == 0 || $time_diff < 5) {
         // Submissão suspeita de bot
-        header('Location: success.html');
+        header('Location: successo.html');
         exit();
     }
 
@@ -168,7 +168,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 // Envia o e-mail
                 $mail->send();
 
-                // Redireciona para success.html
+                // Redireciona para successo.html
                 header('Location: sucesso.html');
                 exit();
             } catch (Exception $e) {
