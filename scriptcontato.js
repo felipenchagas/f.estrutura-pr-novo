@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- Parte 1: Controle do Modal ---
     const modal = document.getElementById('contactModal');
     const btn = document.getElementById('openModalBtn');
-    const span = document.querySelector('.close');
+    let span = document.querySelector('.close');
 
     if (btn && modal && span) {
         btn.addEventListener('click', function() {
@@ -58,7 +58,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 success: function(response) {
                     if (response.status === 'success') {
                         // Exibe a mensagem de sucesso no modal
-                        form.innerHTML = '<p style="color: #fff; font-size: 18px; text-align: center;">Formulário enviado com sucesso! Entraremos em contato em breve.</p>';
+                        const modalContent = document.querySelector('.modal-content');
+                        modalContent.innerHTML = `
+                            <span class="close">&times;</span>
+                            <h2>Solicitar Orçamento</h2>
+                            <p style="color: #fff; font-size: 18px; text-align: center;">Formulário enviado com sucesso! Entraremos em contato em breve.</p>
+                        `;
+
+                        // Reatribui o evento de fechar o modal ao novo botão de fechar
+                        span = modalContent.querySelector('.close');
+                        if (span) {
+                            span.addEventListener('click', function() {
+                                modal.style.display = "none";
+                            });
+                        }
                     } else {
                         // Exibe mensagem de erro
                         alert('Erro: ' + response.message);
