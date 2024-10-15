@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// **⚠️ IMPORTANTE:** Desative a exibição de erros em produção por segurança
+// Desative a exibição de erros em produção
 ini_set('display_errors', 0);
 ini_set('display_startup_errors', 0);
 error_reporting(0);
@@ -20,14 +20,14 @@ use PHPMailer\PHPMailer\Exception;
 // Conectar ao primeiro banco de dados
 $servidor1 = "162.214.145.189";
 $usuario1 = "empre028_felipe";
-$senha1 = "Iuh86gwt--@Z123"; // Sua senha
+$senha1 = "SUA_SENHA_AQUI";
 $banco1 = "empre028_estruturapr";
 $conexao1 = new mysqli($servidor1, $usuario1, $senha1, $banco1);
 
 // Conectar ao segundo banco de dados (Locaweb)
 $servidor2 = "localhost";
 $usuario2 = "primeiro_estrupr";
-$senha2 = "uRXA1r9Z7pv~Cw2";
+$senha2 = "SUA_SENHA_AQUI";
 $banco2 = "primeiro_estruturapr";
 $conexao2 = new mysqli($servidor2, $usuario2, $senha2, $banco2);
 
@@ -60,18 +60,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (!empty($honeypot)) {
         // Submissão suspeita de bot
         header('Content-Type: application/json');
-        echo json_encode(['status' => 'success']); // Retorna sucesso para evitar feedback aos bots
+        echo json_encode(['status' => 'success']);
         exit();
     }
 
     // Verificação do Temporizador de Submissão
-    $current_time = round(microtime(true) * 1000); // Tempo atual em milissegundos
-    $time_diff = ($current_time - $form_loaded_at) / 1000; // diferença em segundos
+    $current_time = round(microtime(true) * 1000);
+    $time_diff = ($current_time - $form_loaded_at) / 1000;
 
     if ($form_loaded_at == 0 || $time_diff < 5) {
         // Submissão suspeita de bot
         header('Content-Type: application/json');
-        echo json_encode(['status' => 'success']); // Retorna sucesso para evitar feedback aos bots
+        echo json_encode(['status' => 'success']);
         exit();
     }
 
@@ -113,7 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $mail->Host       = 'mail.embrafer.com';
                 $mail->SMTPAuth   = true;
                 $mail->Username   = 'contato@estruturametalicapr.com.br';
-                $mail->Password   = 'Futgrass80802!';
+                $mail->Password   = 'SUA_SENHA_SMTP';
                 $mail->SMTPSecure = 'tls';
                 $mail->Port       = 587;
 
@@ -176,3 +176,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 // Limpa o buffer de saída e encerra
 ob_end_clean();
+?>

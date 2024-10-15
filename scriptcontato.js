@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // --- Parte 2: Medidas Anti-Bot e Redirecionamento ---
+    // --- Parte 2: Medidas Anti-Bot e Envio via AJAX ---
     const form = document.getElementById('contact-form');
     if (form) {
         const formLoadedAt = Date.now();
@@ -30,33 +30,45 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         form.addEventListener('submit', function(event) {
+            event.preventDefault();  // Impede o envio padrão do formulário
+
             const currentTime = Date.now();
             const formLoadedAtValue = parseInt(formLoadedAtInput.value, 10);
             const timeDiff = (currentTime - formLoadedAtValue) / 1000;
 
             if (formLoadedAtValue === 0 || timeDiff < 5) {
                 alert("Você está preenchendo o formulário rápido demais! Por favor, tente novamente.");
-                event.preventDefault();  // Impede o envio
                 return;
             }
 
             const honeypot = document.getElementById('honeypot');
             if (honeypot && honeypot.value !== "") {
                 alert("Erro: Formulário inválido.");
-                event.preventDefault();
                 return;
             }
 
-            // Permite que o formulário seja enviado normalmente
-            // Força o redirecionamento para 'sucesso.html' após o envio
+            // Envia o formulário via AJAX
+            const formData = $(form).serialize();
 
-            // Adiciona um evento para capturar o término do envio do formulário
-            form.submit();  // Envia o formulário
-
-            // Força o redirecionamento após um pequeno atraso
-            setTimeout(function() {
-                window.location.href = 'sucesso.html';
-            }, 1000);  // Ajuste o tempo conforme necessário
+            $.ajax({
+                url: form.action,
+                method: form.method,
+                data: formData,
+                dataType: 'json',
+                success: function(response) {
+                    if (response.status === 'success') {
+                        // Exibe a mensagem de sucesso no modal
+                        form.innerHTML = '<p style="color: #fff; font-size: 18px; text-align: center;">Formulário enviado com sucesso! Entraremos em contato em breve.</p>';
+                    } else {
+                        // Exibe mensagem de erro
+                        alert('Erro: ' + response.message);
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error('Erro no envio do formulário:', textStatus, errorThrown);
+                    alert('Ocorreu um erro ao enviar o formulário.');
+                }
+            });
         });
     }
 });
