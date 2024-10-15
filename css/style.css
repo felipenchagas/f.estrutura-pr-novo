@@ -245,24 +245,6 @@ margin-left: 15px;
     margin-top: -50px;
 margin-left: 0px;
 }
-/* scrollUp */
-#scrollUp {
-	background: #c81912;
-	height: 45px;
-	width: 45px;
-	right: 50px;
-	bottom: 77px;
-	color: #fff;
-	font-size: 20px;
-	text-align: center;
-	border-radius: 50%;
-	font-size: 22px;
-	line-height: 45px;
-	transition: .3s;
-}
-#scrollUp:hover {
-	background: #c81912;
-}
 /* 2. header */
 .header-top {
 	padding-top: 40px;
