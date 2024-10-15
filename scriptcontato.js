@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // --- Parte 2: Medidas Anti-Bot e Envio do Formulário via AJAX ---
+    // --- Parte 2: Medidas Anti-Bot e Redirecionamento ---
     const form = document.getElementById('contact-form');
     if (form) {
         const formLoadedAt = Date.now();
@@ -30,43 +30,33 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         form.addEventListener('submit', function(event) {
-            event.preventDefault();  // Impede o envio padrão do formulário
-
             const currentTime = Date.now();
             const formLoadedAtValue = parseInt(formLoadedAtInput.value, 10);
             const timeDiff = (currentTime - formLoadedAtValue) / 1000;
 
             if (formLoadedAtValue === 0 || timeDiff < 5) {
                 alert("Você está preenchendo o formulário rápido demais! Por favor, tente novamente.");
+                event.preventDefault();  // Impede o envio
                 return;
             }
 
             const honeypot = document.getElementById('honeypot');
             if (honeypot && honeypot.value !== "") {
                 alert("Erro: Formulário inválido.");
+                event.preventDefault();
                 return;
             }
 
-            // Envia o formulário via AJAX
-            const formData = new FormData(form);
+            // Permite que o formulário seja enviado normalmente
+            // Força o redirecionamento para 'sucesso.html' após o envio
 
-            fetch(form.action, {
-                method: form.method,
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.status === 'success') {
-                    // Redireciona para a página de sucesso
-                    window.location.href = 'sucesso.html';
-                } else {
-                    alert('Erro: ' + data.message);
-                }
-            })
-            .catch(error => {
-                console.error('Erro no envio do formulário:', error);
-                alert('Ocorreu um erro ao enviar o formulário.');
-            });
+            // Adiciona um evento para capturar o término do envio do formulário
+            form.submit();  // Envia o formulário
+
+            // Força o redirecionamento após um pequeno atraso
+            setTimeout(function() {
+                window.location.href = 'sucesso.html';
+            }, 1000);  // Ajuste o tempo conforme necessário
         });
     }
 });
