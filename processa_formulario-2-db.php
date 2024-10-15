@@ -15,24 +15,35 @@ require_once("novo/src/Exception.php");
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
+// Função para detectar requisição AJAX
+function is_ajax_request() {
+    return isset($_SERVER['HTTP_X_REQUESTED_WITH']) &&
+           strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
+}
+
 // Conectar ao primeiro banco de dados
 $servidor1 = "162.214.145.189";
 $usuario1 = "empre028_felipe";
-$senha1 = "Iuh86gwt--@Z123"; // **ATENÇÃO:** Remova esta senha do código público imediatamente
+$senha1 = "Iuh86gwt--@Z123"; // **ATENÇÃO:** Alterar imediatamente
 $banco1 = "empre028_estruturapr";
 $conexao1 = new mysqli($servidor1, $usuario1, $senha1, $banco1);
 
 // Conectar ao segundo banco de dados (Locaweb)
 $servidor2 = "localhost";
 $usuario2 = "primeiro_estrupr";
-$senha2 = "uRXA1r9Z7pv~Cw2"; // **ATENÇÃO:** Remova esta senha do código público imediatamente
+$senha2 = "uRXA1r9Z7pv~Cw2"; // **ATENÇÃO:** Alterar imediatamente
 $banco2 = "primeiro_estruturapr";
 $conexao2 = new mysqli($servidor2, $usuario2, $senha2, $banco2);
 
 // Verifica se a conexão foi bem-sucedida com ambos os bancos
 if ($conexao1->connect_error || $conexao2->connect_error) {
-    header('Content-Type: application/json');
-    echo json_encode(['status' => 'error', 'message' => 'Erro na conexão com o banco de dados.']);
+    if (is_ajax_request()) {
+        header('Content-Type: application/json');
+        echo json_encode(['status' => 'error', 'message' => 'Erro na conexão com o banco de dados.']);
+    } else {
+        // Redireciona para uma página de erro ou exibe uma mensagem
+        header('Location: error.html');
+    }
     exit();
 }
 
@@ -56,8 +67,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Verificação do Honeypot
     if (!empty($honeypot)) {
-        header('Content-Type: application/json');
-        echo json_encode(['status' => 'success']); // Retorna sucesso para evitar feedback aos bots
+        // Submissão suspeita de bot
+        // Redireciona silenciosamente para success.html para evitar feedback aos bots
+        header('Location: success.html');
         exit();
     }
 
@@ -67,15 +79,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($form_loaded_at == 0 || $time_diff < 5) {
         // Submissão suspeita de bot
-        header('Content-Type: application/json');
-        echo json_encode(['status' => 'success']); // Retorna sucesso para evitar feedback aos bots
+        header('Location: success.html');
         exit();
     }
 
     // Validação básica dos campos
     if (empty($nome) || empty($email) || empty($ddd) || empty($telefone) || empty($cidade) || empty($estado) || empty($descricao)) {
-        header('Content-Type: application/json');
-        echo json_encode(['status' => 'error', 'message' => 'Todos os campos são obrigatórios.']);
+        if (is_ajax_request()) {
+            header('Content-Type: application/json');
+            echo json_encode(['status' => 'error', 'message' => 'Todos os campos são obrigatórios.']);
+        } else {
+            // Redireciona para uma página de erro ou exibe uma mensagem
+            header('Location: error.html');
+        }
+        exit();
+    }
+
+    // Validação do formato do e-mail
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        if (is_ajax_request()) {
+            header('Content-Type: application/json');
+            echo json_encode(['status' => 'error', 'message' => 'Endereço de e-mail inválido.']);
+        } else {
+            // Redireciona para uma página de erro ou exibe uma mensagem
+            header('Location: error.html');
+        }
         exit();
     }
 
@@ -110,7 +138,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $mail->Host       = 'mail.embrafer.com';
                 $mail->SMTPAuth   = true;
                 $mail->Username   = 'contato@estruturametalicapr.com.br';
-                $mail->Password   = 'Futgrass80802!'; // **ATENÇÃO:** Remova esta senha do código público imediatamente
+                $mail->Password   = 'Futgrass80802!'; // **ATENÇÃO:** Alterar imediatamente
                 $mail->SMTPSecure = 'tls';
                 $mail->Port       = 587;
 
@@ -140,25 +168,36 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 // Envia o e-mail
                 $mail->send();
 
-                // Retorna resposta de sucesso em JSON
-                header('Content-Type: application/json');
-                echo json_encode(['status' => 'success']);
+                // Redireciona para success.html
+                header('Location: success.html');
                 exit();
             } catch (Exception $e) {
-                header('Content-Type: application/json');
-                echo json_encode(['status' => 'error', 'message' => 'Erro ao enviar e-mail.']);
+                if (is_ajax_request()) {
+                    header('Content-Type: application/json');
+                    echo json_encode(['status' => 'error', 'message' => 'Erro ao enviar e-mail.']);
+                } else {
+                    header('Location: error.html');
+                }
                 exit();
             }
         } else {
-            header('Content-Type: application/json');
-            echo json_encode(['status' => 'error', 'message' => 'Erro ao inserir dados no banco de dados.']);
+            if (is_ajax_request()) {
+                header('Content-Type: application/json');
+                echo json_encode(['status' => 'error', 'message' => 'Erro ao inserir dados no banco de dados.']);
+            } else {
+                header('Location: error.html');
+            }
             exit();
         }
         $stmt1->close();
         $stmt2->close();
     } else {
-        header('Content-Type: application/json');
-        echo json_encode(['status' => 'error', 'message' => 'Erro ao preparar a consulta no banco de dados.']);
+        if (is_ajax_request()) {
+            header('Content-Type: application/json');
+            echo json_encode(['status' => 'error', 'message' => 'Erro ao preparar a consulta no banco de dados.']);
+        } else {
+            header('Location: error.html');
+        }
         exit();
     }
 
@@ -166,8 +205,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $conexao1->close();
     $conexao2->close();
 } else {
-    header('Content-Type: application/json');
-    echo json_encode(['status' => 'error', 'message' => 'Método de requisição inválido.']);
+    if (is_ajax_request()) {
+        header('Content-Type: application/json');
+        echo json_encode(['status' => 'error', 'message' => 'Método de requisição inválido.']);
+    } else {
+        header('Location: error.html');
+    }
     exit();
 }
 ?>

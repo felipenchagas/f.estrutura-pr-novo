@@ -20,70 +20,39 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // --- Parte 2: Medidas Anti-Bot e Envio via AJAX ---
+    // --- Parte 2: Medidas Anti-Bot ---
     const form = document.getElementById('contact-form');
     if (form) {
-        const formLoadedAt = Date.now();
+        // Popula o campo hidden 'form_loaded_at' com o timestamp atual
         const formLoadedAtInput = document.getElementById('form_loaded_at');
         if (formLoadedAtInput) {
-            formLoadedAtInput.value = formLoadedAt;
+            formLoadedAtInput.value = Date.now();
         }
 
+        // Opcional: Adicionar validações adicionais no lado do cliente
         form.addEventListener('submit', function(event) {
-            event.preventDefault();  // Impede o envio padrão do formulário
-
-            const currentTime = Date.now();
             const formLoadedAtValue = parseInt(formLoadedAtInput.value, 10);
-            const timeDiff = (currentTime - formLoadedAtValue) / 1000;
+            const currentTime = Date.now();
+            const timeDiff = (currentTime - formLoadedAtValue) / 1000; // diferença em segundos
 
             if (formLoadedAtValue === 0 || timeDiff < 5) {
                 alert("Você está preenchendo o formulário rápido demais! Por favor, tente novamente.");
+                event.preventDefault(); // Impede o envio do formulário
                 return;
             }
 
             const honeypot = document.getElementById('honeypot');
             if (honeypot && honeypot.value !== "") {
                 alert("Erro: Formulário inválido.");
+                event.preventDefault(); // Impede o envio do formulário
                 return;
             }
 
-            // Envia o formulário via AJAX
-            const formData = $(form).serialize();
-
-            $.ajax({
-                url: form.action,
-                method: form.method,
-                data: formData,
-                dataType: 'json',
-                success: function(response) {
-                    console.log(response); // Para depuração
-
-                    if (response.status === 'success') {
-                        // Exibe a mensagem de sucesso no modal
-                        const modalContent = document.querySelector('.modal-content');
-                        modalContent.innerHTML = `
-                            <span class="close">&times;</span>
-                            <h2>Solicitar Orçamento</h2>
-                            <p style="color: #fff; font-size: 18px; text-align: center;">Formulário enviado com sucesso! Entraremos em contato em breve.</p>
-                        `;
-
-                        // Reatribui o evento de fechar o modal ao novo botão de fechar
-                        span = modalContent.querySelector('.close');
-                        if (span) {
-                            span.addEventListener('click', function() {
-                                modal.style.display = "none";
-                            });
-                        }
-                    } else {
-                        // Exibe mensagem de erro
-                        alert('Erro: ' + response.message);
-                    }
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.error('Erro no envio do formulário:', textStatus, errorThrown);
-                    alert('Ocorreu um erro ao enviar o formulário.');
-                }
-            });
+            // Caso deseje exibir uma mensagem de carregamento ou desabilitar o botão de envio, pode-se fazer aqui
+            // Exemplo:
+            // const submitButton = form.querySelector('button[type="submit"]');
+            // submitButton.disabled = true;
+            // submitButton.textContent = "Enviando...";
         });
     }
 });
