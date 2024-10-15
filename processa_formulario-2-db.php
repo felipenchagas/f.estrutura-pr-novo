@@ -2,9 +2,9 @@
 session_start();
 
 // **⚠️ IMPORTANTE:** Desative a exibição de erros em produção por segurança
-ini_set('display_errors', 0); // Altere para 0 em produção
-ini_set('display_startup_errors', 0); // Altere para 0 em produção
-error_reporting(0); // Altere para 0 em produção
+ini_set('display_errors', 0);
+ini_set('display_startup_errors', 0);
+error_reporting(0);
 
 // Inicia o buffer de saída
 ob_start();
@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $current_time = round(microtime(true) * 1000); // Tempo atual em milissegundos
     $time_diff = ($current_time - $form_loaded_at) / 1000; // diferença em segundos
 
-    if ($form_loaded_at == 0 || $time_diff < 5) {  // Se o formulário foi enviado muito rapidamente
+    if ($form_loaded_at == 0 || $time_diff < 5) {
         // Submissão suspeita de bot
         header('Content-Type: application/json');
         echo json_encode(['status' => 'success']); // Retorna sucesso para evitar feedback aos bots

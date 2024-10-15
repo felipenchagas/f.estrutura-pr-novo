@@ -48,23 +48,24 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             // Envia o formulário via AJAX
-            $.ajax({
-                url: form.action,
+            const formData = new FormData(form);
+
+            fetch(form.action, {
                 method: form.method,
-                data: $(form).serialize(),
-                dataType: 'json', // Esperamos uma resposta JSON do servidor
-                success: function(response) {
-                    if (response.status === 'success') {
-                        // Redireciona para a página de sucesso
-                        window.location.href = 'sucesso.html';
-                    } else {
-                        alert('Erro: ' + response.message);
-                    }
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.error('Erro no envio do formulário:', textStatus, errorThrown);
-                    alert('Ocorreu um erro ao enviar o formulário.');
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    // Redireciona para a página de sucesso
+                    window.location.href = 'sucesso.html';
+                } else {
+                    alert('Erro: ' + data.message);
                 }
+            })
+            .catch(error => {
+                console.error('Erro no envio do formulário:', error);
+                alert('Ocorreu um erro ao enviar o formulário.');
             });
         });
     }
