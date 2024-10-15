@@ -9,8 +9,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
 
 // Processa o login
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $usuario = $_POST['eneas'];
-    $senha = $_POST['embra8080@'];
+    $usuario = $_POST['usuario'];    $senha = $_POST['senha'];
 
     // Defina seu usuário e senha
     $usuario_correto = 'eneas';
