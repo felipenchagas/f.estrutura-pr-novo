@@ -33,7 +33,9 @@ $conexao2 = new mysqli($servidor2, $usuario2, $senha2, $banco2);
 
 // Verifica se a conexão foi bem-sucedida com ambos os bancos
 if ($conexao1->connect_error || $conexao2->connect_error) {
-    die("Erro na conexão com o banco de dados.");
+    header('Content-Type: application/json');
+    echo json_encode(['status' => 'error', 'message' => 'Erro na conexão com o banco de dados.']);
+    exit();
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -57,7 +59,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Verificação do Honeypot
     if (!empty($honeypot)) {
         // Submissão suspeita de bot
-        header('Location: sucesso.html');
+        header('Content-Type: application/json');
+        echo json_encode(['status' => 'success']); // Retorna sucesso para evitar feedback aos bots
         exit();
     }
 
@@ -67,13 +70,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($form_loaded_at == 0 || $time_diff < 5) {  // Se o formulário foi enviado muito rapidamente
         // Submissão suspeita de bot
-        header('Location: sucesso.html');
+        header('Content-Type: application/json');
+        echo json_encode(['status' => 'success']); // Retorna sucesso para evitar feedback aos bots
         exit();
     }
 
     // Validação básica dos campos
     if (empty($nome) || empty($email) || empty($ddd) || empty($telefone) || empty($cidade) || empty($estado) || empty($descricao)) {
-        echo "Todos os campos são obrigatórios.";
+        header('Content-Type: application/json');
+        echo json_encode(['status' => 'error', 'message' => 'Todos os campos são obrigatórios.']);
         exit();
     }
 
@@ -138,30 +143,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 // Envia o e-mail
                 $mail->send();
 
-                // Redireciona para a página de sucesso
-                header('Location: sucesso.html');
+                // Retorna resposta de sucesso em JSON
+                header('Content-Type: application/json');
+                echo json_encode(['status' => 'success']);
                 exit();
             } catch (Exception $e) {
-                // Em caso de erro no envio do e-mail, você pode tratar aqui
-                // Certifique-se de não enviar nenhuma saída ao navegador
-                // Por exemplo, você pode registrar o erro em um arquivo de log
-                error_log('Erro ao enviar e-mail: ' . $mail->ErrorInfo);
-                header('Location: sucesso.html');
+                header('Content-Type: application/json');
+                echo json_encode(['status' => 'error', 'message' => 'Erro ao enviar e-mail.']);
                 exit();
             }
         } else {
-            // Em caso de erro na inserção dos dados
-            // Novamente, evite enviar saída ao navegador
-            error_log('Erro ao inserir dados no banco de dados.');
-            header('Location: sucesso.html');
+            header('Content-Type: application/json');
+            echo json_encode(['status' => 'error', 'message' => 'Erro ao inserir dados no banco de dados.']);
             exit();
         }
         $stmt1->close();
         $stmt2->close();
     } else {
-        // Em caso de erro ao preparar as consultas
-        error_log('Erro ao preparar a consulta no banco de dados.');
-        header('Location: sucesso.html');
+        header('Content-Type: application/json');
+        echo json_encode(['status' => 'error', 'message' => 'Erro ao preparar a consulta no banco de dados.']);
         exit();
     }
 
@@ -169,7 +169,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $conexao1->close();
     $conexao2->close();
 } else {
-    header('Location: sucesso.html');
+    header('Content-Type: application/json');
+    echo json_encode(['status' => 'error', 'message' => 'Método de requisição inválido.']);
     exit();
 }
 
