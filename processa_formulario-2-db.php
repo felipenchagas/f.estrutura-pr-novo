@@ -142,50 +142,61 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit();
     }
 
-    $mail = new PHPMailer(true);
-    try {
-        $mail->isSMTP();
-        $mail->Host = 'mail.embrafer.com';
-        $mail->SMTPAuth = true;
-        $mail->Username = 'contato@estruturametalicapr.com.br';
-        $mail->Password = 'Futgrass80802!';
-        $mail->SMTPSecure = 'tls';
-        $mail->Port = 587;
+	$mail = new PHPMailer(true);
 
-        $mail->setFrom('contato@estruturametalicapr.com.br', 'Embrafer Contato');
-        $mail->addAddress('contato@estruturametalicapr.com.br', 'Embrafer');
+	try {
+		$mail->isSMTP();
+		$mail->Host = 'mail.embrafer.com';
+		$mail->SMTPAuth = true;
+		$mail->Username = 'contato@estruturametalicapr.com.br';
+		$mail->Password = 'Futgrass80802!';
+		$mail->SMTPSecure = 'ssl'; // Alterado para SSL
+		$mail->Port = 465;         // Porta para SSL
 
-        $mail->isHTML(true);
-        $mail->CharSet = 'UTF-8';
-        $mail->Subject = 'Novo Contato - Site Empresarial';
-        $mail->Body = "
-            <html>
-            <body>
-                <h3>Contato recebido pelo site</h3>
-                <p><strong>Nome:</strong> $nome</p>
-                <p><strong>E-mail:</strong> $email</p>
-                <p><strong>Telefone:</strong> $telefone_completo</p>
-                <p><strong>Cidade:</strong> $cidade</p>
-                <p><strong>Estado:</strong> $estado</p>
-                <p><strong>Descrição:</strong> $descricao</p>
-                <p><strong>Data:</strong> " . date('d/m/Y H:i:s') . "</p>
-            </body>
-            </html>
-        ";
+		// Opções SSL para ignorar erros de certificado (não recomendado em produção)
+		$mail->SMTPOptions = [
+			'ssl' => [
+				'verify_peer' => false,
+				'verify_peer_name' => false,
+				'allow_self_signed' => true,
+			],
+		];
 
-        $mail->send();
-        header('Location: sucesso.html');
-        exit();
-    } catch (Exception $e) {
-        file_put_contents('error_log.txt', "[" . date('Y-m-d H:i:s') . "] Erro ao enviar e-mail: " . $mail->ErrorInfo . "\n", FILE_APPEND);
-        if (is_ajax_request()) {
-            header('Content-Type: application/json');
-            echo json_encode(['status' => 'error', 'message' => 'Erro ao enviar e-mail.']);
-        } else {
-            header('Location: error.html');
-        }
-        exit();
-    }
+		$mail->setFrom('contato@estruturametalicapr.com.br', 'Embrafer Contato');
+		$mail->addAddress('contato@estruturametalicapr.com.br', 'Embrafer');
+
+		$mail->isHTML(true);
+		$mail->CharSet = 'UTF-8';
+		$mail->Subject = 'Novo Contato - Site Empresarial';
+		$mail->Body = "
+			<html>
+			<body>
+				<h3>Contato recebido pelo site</h3>
+				<p><strong>Nome:</strong> $nome</p>
+				<p><strong>E-mail:</strong> $email</p>
+				<p><strong>Telefone:</strong> $telefone_completo</p>
+				<p><strong>Cidade:</strong> $cidade</p>
+				<p><strong>Estado:</strong> $estado</p>
+				<p><strong>Descrição:</strong> $descricao</p>
+				<p><strong>Data:</strong> " . date('d/m/Y H:i:s') . "</p>
+			</body>
+			</html>
+		";
+
+		$mail->send();
+		header('Location: sucesso.html');
+		exit();
+	} catch (Exception $e) {
+		file_put_contents('error_log.txt', "[" . date('Y-m-d H:i:s') . "] Erro ao enviar e-mail: " . $mail->ErrorInfo . "\n", FILE_APPEND);
+		if (is_ajax_request()) {
+			header('Content-Type: application/json');
+			echo json_encode(['status' => 'error', 'message' => 'Erro ao enviar e-mail.']);
+		} else {
+			header('Location: error.html');
+		}
+		exit();
+	}
+
 } else {
     if (is_ajax_request()) {
         header('Content-Type: application/json');
